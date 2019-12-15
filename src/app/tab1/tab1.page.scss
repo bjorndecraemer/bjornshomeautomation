@@ -1,4 +1,29 @@
+
 .welcome-card img {
   max-height: 35vh;
   overflow: hidden;
 }
+
+ion-badge{
+  font-size : 1.3em;
+}
+.chauffage-icons{
+  font-size: 64px!important;
+}
+
+.chauffage-icons-small{
+  font-size: 1.2em!important;
+}
+
+.heating-feedback-col{
+  text-align: center;
+}
+
+.pump-active{
+  color: #3880ff;
+}
+
+.burner-active{
+  color: #f04141;
+}
+
