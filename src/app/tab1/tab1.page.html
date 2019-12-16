@@ -1,7 +1,9 @@
 <ion-header>
     <ion-toolbar>
         <ion-title>
-            Heater Management
+            <span>Heater Management</span>
+            <span><ion-spinner name="dots" *ngIf="heatingService.loadingSubject|async"
+                               class="ion-float-right"></ion-spinner></span>
         </ion-title>
     </ion-toolbar>
 </ion-header>
