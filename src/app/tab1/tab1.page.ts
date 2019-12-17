@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeatingService} from "./heater/services/heating.service";
-import {interval, Observable} from "rxjs";
+import {BehaviorSubject, interval, Observable} from "rxjs";
 
 @Component({
   selector: 'app-tab1',
@@ -14,6 +14,7 @@ export class Tab1Page implements OnInit, OnDestroy{
   sliderBadgeColor = 'danger';
   tempTempVar : number;
   $secondsCounterObservable;
+  $tempReady : BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(public heatingService : HeatingService) {
   }
@@ -22,6 +23,8 @@ export class Tab1Page implements OnInit, OnDestroy{
     this.heatingService.refreshData();
     this.heatingService.$requestedTemperature.subscribe(value => {
       this.tempTempVar = value;
+      this.knobValues = value;
+      this.$tempReady.next(true);
       this.refreshSlider();
     });
     this.$secondsCounterObservable = interval(15000).subscribe(() => {this.heatingService.refreshData(); });
@@ -29,6 +32,7 @@ export class Tab1Page implements OnInit, OnDestroy{
 
   ngOnDestroy(): void {
     this.$secondsCounterObservable.unsubscribe();
+    this.$tempReady.next(false);
   }
 
 
@@ -46,9 +50,12 @@ export class Tab1Page implements OnInit, OnDestroy{
 
   public onSliderChanged() {
     console.log('Current debounced value = ' + this.knobValues);
-    this.tempTempVar = this.knobValues;
-    this.heatingService.setRequestedTemperatureStatus(this.knobValues);
-    this.refreshSlider();
+    if(!this.tempTempVar || this.tempTempVar !== this.knobValues) {
+      console.log("Persisting!")
+      this.tempTempVar = this.knobValues;
+      this.heatingService.setRequestedTemperatureStatus(this.knobValues);
+      this.refreshSlider();
+    }
   }
 
   private refreshSlider(){
