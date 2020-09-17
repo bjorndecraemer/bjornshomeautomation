@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
-import {Observable, throwError} from "rxjs";
-import {catchError, map, retry, tap} from "rxjs/operators";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
+import {catchError, retry} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +9,7 @@ import {catchError, map, retry, tap} from "rxjs/operators";
 export class ApiService {
 
     // API path
-    private base_path = 'http://192.168.1.30:8080/api/fecontrol/';
+    private basePath = 'http://192.168.1.30:8080/api/fecontrol/';
     // private base_path = 'http://localhost:8080/api/fecontrol/';
     private pumpEndpoint = 'pump';
     private burnerEndpoint = 'burner';
@@ -27,7 +27,7 @@ export class ApiService {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'
         })
-    }
+    };
 
     getPumpStatus(): Observable<boolean> {
         return this.getBoolean(this.pumpEndpoint);
@@ -53,25 +53,25 @@ export class ApiService {
         return this.getNumber(this.requestedTemperatureEndpoint);
     }
 
-    setPumpMode(value: boolean): Observable<Object> {
+    setPumpMode(value: boolean): Observable<object> {
         return this.setBoolean(this.pumpEndpoint, value);
     }
 
-    setBurnerMode(value: boolean): Observable<Object> {
+    setBurnerMode(value: boolean): Observable<object> {
         return this.setBoolean(this.burnerEndpoint, value);
     }
 
-    setManualMode(value: boolean): Observable<Object> {
+    setManualMode(value: boolean): Observable<object> {
         return this.setBoolean(this.manualModeEndpoint, value);
     }
 
-    setRequestedTemperature(value: number): Observable<Object> {
+    setRequestedTemperature(value: number): Observable<object> {
         return this.setNumber(this.requestedTemperatureEndpoint, value);
     }
 
     private getBoolean(subPath: string): Observable<boolean> {
         return this.http
-            .get<boolean>(this.base_path + subPath)
+            .get<boolean>(this.basePath + subPath)
             .pipe(
                 retry(2),
                 catchError(this.handleError)
@@ -80,25 +80,25 @@ export class ApiService {
 
     private getNumber(subPath: string): Observable<number> {
         return this.http
-            .get<number>(this.base_path + subPath)
-            .pipe(
-                retry(2),
-                catchError(this.handleError)
-            )
-    }
-
-    private setBoolean(subPath: string, value: boolean): Observable<Object> {
-        return this.http
-            .put(this.base_path + subPath + "?setting=" + value, '')
+            .get<number>(this.basePath + subPath)
             .pipe(
                 retry(2),
                 catchError(this.handleError)
             );
     }
 
-    private setNumber(subPath: string, value: number): Observable<Object> {
+    private setBoolean(subPath: string, value: boolean): Observable<object> {
         return this.http
-            .put(this.base_path + subPath + "?value=" + value, '')
+            .put(this.basePath + subPath + '?setting=' + value, '')
+            .pipe(
+                retry(2),
+                catchError(this.handleError)
+            );
+    }
+
+    private setNumber(subPath: string, value: number): Observable<object> {
+        return this.http
+            .put(this.basePath + subPath + '?value=' + value, '')
             .pipe(
                 retry(2),
                 catchError(this.handleError)
@@ -119,5 +119,5 @@ export class ApiService {
         // return an observable with a user-facing error message
         return throwError(
             'Something bad happened; please try again later.');
-    };
+    }
 }

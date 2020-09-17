@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {HeatingCalendarService} from '../heater/calendar/services/heating-calendar.service';
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +8,6 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  constructor(public heatingCalendarService: HeatingCalendarService) {}
 
 }

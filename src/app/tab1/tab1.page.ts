@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HeatingService} from './heater/services/heating.service';
+import {HeatingService} from '../heater/services/heating.service';
 import {BehaviorSubject, interval} from 'rxjs';
 import {ToastController} from '@ionic/angular';
 
@@ -42,7 +42,7 @@ export class Tab1Page implements OnInit, OnDestroy {
         header: 'Error',
         message: 'Connecting to the pi failed, please check your wifi settings',
         position: 'top',
-        duration: 5000,
+        duration: 7000,
         color: 'danger'
       });
       toast.present();

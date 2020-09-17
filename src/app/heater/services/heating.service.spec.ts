@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { HeatingService } from './heating.service';
+import {HeatingService} from './heating.service';
 
 describe('HeatingService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

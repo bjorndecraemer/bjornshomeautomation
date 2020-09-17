@@ -30,4 +30,12 @@ ion-badge{
 .burner-active{
   color: #f04141;
 }
+ion-range {
+  --pin-background: black;
+  --pin-color: red;
+  --knob-size: 3em;
+  --bar-height: 0.2em;
+  --height : 6em;
+  font-family: sans-serif;
+}
 

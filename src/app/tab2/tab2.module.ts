@@ -1,9 +1,10 @@
-import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Tab2Page } from './tab2.page';
+import {IonicModule} from '@ionic/angular';
+import {RouterModule} from '@angular/router';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {Tab2Page} from './tab2.page';
+import {HeatingCalendarEntryComponent} from './components/heating-calendar-entry/heating-calendar-entry.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { Tab2Page } from './tab2.page';
     FormsModule,
     RouterModule.forChild([{ path: '', component: Tab2Page }])
   ],
-  declarations: [Tab2Page]
+  declarations: [Tab2Page, HeatingCalendarEntryComponent]
 })
 export class Tab2PageModule {}
